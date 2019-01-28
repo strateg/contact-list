@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(title=~{::title/text()})">
+    <title>Contact List</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments :: navbar"></div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Contact List</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <div class="card border-grey">
+                <div class="card-header bg-light text-blue">
+                    Search for contacts
+                </div>
+                <div class="card-body">
+                    <form th:object="${contacts}" th:action="@{/contacts}" method="get">
+                        <div class="input-group">
+                            <input type="text" name="searchFor" id="search" class="form-control" placeholder="Enter name" th:value="${search}">
+                            <span class="input-group-btn">
+                                <button type="submit" value="search" class="btn btn-primary">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </tr>
+
+        <tr>
+            <div class="card border-grey">
+                <div class="form-group col-md-1 mt-2">
+                    <select class="form-control pagination" id="pageSizeSelect">
+                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                                th:selected="${pageSize} == ${selectedPageSize}"></option>
+                    </select>
+                </div>
+                <div th:if="${contacts.totalPages != 1}" class="form-group col-md-11 pagination-centered mt-2">
+                    <ul class="pagination">
+                        <li th:class="${contacts.number == 0} ? disabled">
+                            <a class="page-link" th:href="@{/contacts(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                        </li>
+                        <li th:class="${contacts.number == 0} ? disabled">
+                            <a class="page-link" th:href="@{/contacts(pageSize=${selectedPageSize}, page=${contacts.number})}">&larr;</a>
+                        </li>
+                        <li th:class="${contacts.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                            <a class="page-link" th:href="@{/contacts(pageSize=${selectedPageSize}, page=${page})}"
+                               th:text="${page}"></a>
+                        </li>
+                        <li th:class="${contacts.number + 1 == contacts.totalPages} ? disabled">
+                            <a class="page-link"
+                               th:href="@{/contacts(pageSize=${selectedPageSize}, page=${contacts.number + 2})}">&rarr;</a>
+                        </li>
+                        <li th:class="${contacts.number + 1 == contacts.totalPages} ? disabled">
+                            <a class="page-link"
+                               th:href="@{/contacts(pageSize=${selectedPageSize}, page=${contacts.totalPages})}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </tr>
+
+        <tr th:each="contact : ${contacts}">
+            <td>
+                <div class="card" style="width:223px">
+                    <img class="card-img-top" th:src="@{${contact.url}}" alt="No Photo">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${contact.name}"></h4>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

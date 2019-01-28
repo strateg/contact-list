@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="head (title)">
+		<title th:text="${title}">Fragments</title>
+		<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+		<link th:href="@{/css/style.css}" rel="stylesheet"/>
+	</head>
+	<body>
+		<div class="container">
+			<nav th:fragment="navbar" class="navbar navbar-dark bg-primary">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link" th:href="@{/contacts}" href="contacts.html">Contacts</a></li>
+				</ul>
+				<a class="navbar-brand"  href="https://github.com/strateg/contact-list">Dmitri Prohhorov</a>
+			</nav>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,16 @@
+Task statement
+Create a simple "contact list" application that allows:
+- Listing people (name and photo)
+- Searching by name
+- Paging
+
+Initial list should be one-time populated with people.csv attached. Contact addition/removal/edit is out of scope of this task.
+
+Technical clarification
+- Spring Boot
+- Any build system
+- Consider it as an enterprise-grade application (it will stay there for years, will be extended and maintained)
+- As a consequence it should be DB-ready, meaning it should be little-to-zero effort to make this implementation use some enterprise DB (e.g. Oracle)
+
+Expected outcome
+A repository at your GitHub account from where you can clone the solution and run with little-to-zero efforts.
